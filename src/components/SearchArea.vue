@@ -24,7 +24,7 @@
 </template>
 
 <script setup lang="ts">
-import { Search } from '@/types/share';
+import type { Search } from '@/types/share';
 import { ref, watch } from 'vue'
 
 interface Emits {
