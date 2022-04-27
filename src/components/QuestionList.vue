@@ -49,6 +49,17 @@
       </div>
     </div>
   </div>
+  <div
+    v-show="questionIsLoading"
+    class="
+      w-36 h-36
+      mx-auto mt-9
+      border-8 border-solid border-secondary-600  border-r-transparent border-b-transparent
+      rounded-full
+      animate-spin"
+  >
+
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -56,6 +67,7 @@ import type { Question } from '@/types/share';
 
 interface Props {
   questionList: Question[];
+  questionIsLoading: boolean;
 }
 
 const props = defineProps<Props>()

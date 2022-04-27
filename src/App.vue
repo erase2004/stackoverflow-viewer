@@ -11,6 +11,7 @@
       ></TrendingList>
       <QuestionList
         :questionList="questionList"
+        :questionIsLoading="questionIsLoading"
       ></QuestionList>
     </div>
   </div>
@@ -86,16 +87,16 @@ async function tagListChangeHandle(tagList: TagList) {
 }
 
 async function getQuestionsByTag(tagList: TagList, page: number) {
+  if (page === 1) {
+    questionList.splice(0, questionList.length)
+  }
+
   try {
     questionIsLoading.value = true
     const resp = await api.getQeustionsByTag(tagList, page)
 
     if (resp.status === 200) {
       const { data: { items }} = resp
-
-      if (page === 1) {
-        questionList.splice(0, questionList.length)
-      }
 
       questionList.push(...items)
     }
