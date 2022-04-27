@@ -4,11 +4,13 @@ import { TAG_SEPERATOR } from "@/constants/share";
 
 const tagCount = 10
 const questionCount = 20
+const key = '31L5Ys8JXOvMtuhz87xJQw(('
 
 export default {
   getTopTags() {
     return apiHelper.get('/tags', {
       params: {
+        key,
         pagesize: tagCount,
         order: 'desc',
         sort: 'popular',
@@ -19,6 +21,7 @@ export default {
   getQeustionsByTag(tagList: TagList, page: number) {
     return apiHelper.get('/questions', {
       params: {
+        key,
         page,
         pagesize: questionCount,
         order: 'desc',
