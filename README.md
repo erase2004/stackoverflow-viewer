@@ -1,16 +1,67 @@
-# Vue 3 + TypeScript + Vite
+# StackOverflow Viewer
 
-This template should help get you started developing with Vue 3 and TypeScript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+## Project Preview
+![preview image](./public/preview/01.png)
+![preview image](./public/preview/02.png)
+![preview image](./public/preview/03.png)
 
-## Recommended IDE Setup
+- - -
 
-- [VS Code](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=johnsoncodehk.volar)
+## This project is currently built on
+* [Vite](https://vitejs.dev/)
+* [Vue3](https://vuejs.org/)
+* [TypeScript](https://www.typescriptlang.org/)
+* [Tailwind CSS](https://tailwindcss.com/)
 
-## Type Support For `.vue` Imports in TS
+- - -
 
-Since TypeScript cannot handle type information for `.vue` imports, they are shimmed to be a generic Vue component type by default. In most cases this is fine if you don't really care about component prop types outside of templates. However, if you wish to get actual prop types in `.vue` imports (for example to get props validation when using manual `h(...)` calls), you can enable Volar's Take Over mode by following these steps:
+## Completed Requirements
+### Trending Tags
+1. :heavy_check_mark: Display top 10 trending tags
+2. :heavy_check_mark: Data can be found using this (https://api.stackexchange.com/docs/tags)
+3. :heavy_check_mark: Default selected the first tag.
+4. :heavy_check_mark: Use a round corner for tag border.
+### Question Listing
+1. :heavy_check_mark: The question list data can be found using this
+(https://api.stackexchange.com/docs/questions) with the selected tag as the filter.
+2. :heavy_check_mark: Support infinite scrolling (20 questions per fetch) and lazy load.
+3. :heavy_check_mark: When scrolling down the list, the “Trending Tags” section shall scroll together.
+4. :heavy_check_mark: Clicking a question will open a new tab to the question link.
+5. :heavy_check_mark: Highlight the score when it is below zero
+6. :heavy_check_mark: Highlight the answers with border only when it has more than 1 answer but not accepted.
+7. :heavy_check_mark: Highlight the answers when it has more than 1 answer and accepted.
+8. :heavy_check_mark: Apply round corner for user profile picture.
+### Searching
+1. :heavy_check_mark: The search will apply searching to trending tags.
+2. :heavy_check_mark: The search bar is located at the top of the page, even when the list is scrolling.
+3. :heavy_check_mark: Search is performed when the keyword is typed, trending tags and listing shall update
+accordingly.
 
-1. Run `Extensions: Show Built-in Extensions` from VS Code's command palette, look for `TypeScript and JavaScript Language Features`, then right click and select `Disable (Workspace)`. By default, Take Over mode will enable itself if the default TypeScript extension is disabled.
-2. Reload the VS Code window by running `Developer: Reload Window` from the command palette.
+- - -
 
-You can learn more about Take Over mode [here](https://github.com/johnsoncodehk/volar/discussions/471).
+## Usage Guide
+1. Install `yarn` (https://yarnpkg.com/getting-started/install)
+2. Install project dependencies
+```
+yarn
+```
+3. Build project
+```
+yarn build
+```
+4. Preview project at local machine
+```
+yarn preview
+```
+Then, open the browser, and type `localhost:8080` to view the result.
+
+- - -
+
+## Project Directory Explanation
+    /src               - root directory of source code
+    /src/components    - view component files
+    /src/utils         - share functions
+    /src/service       - API
+    /src/styles        - CSS style
+    /src/types         - share TypeScript type definition
+    /src/constants     - share constant
