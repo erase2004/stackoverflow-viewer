@@ -1,3 +1,8 @@
 <template>
-  <div>Hello World</div>
+  <Search></Search>
 </template>
+
+<script setup lang="ts">
+import Search from '@/components/Search.vue';
+
+</script>
