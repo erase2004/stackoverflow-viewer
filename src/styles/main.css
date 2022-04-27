@@ -1,3 +1,15 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.btn {
+  @apply border border-solid rounded-md;
+}
+
+.btn-primary {
+  @apply border-primary-800 bg-primary-800 text-secondary-200 hover:bg-primary-700;
+}
+
+.btn-primary-outline {
+  @apply border-primary-800 bg-secondary-50 text-primary-800 hover:bg-primary-800 hover:text-secondary-200;
+}
