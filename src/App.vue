@@ -1,6 +1,8 @@
 <template>
-  <Search></Search>
-  <div class="flex flex-col max-w-5xl mx-auto">
+  <SearchArea @search="search = $event">
+
+  </SearchArea>
+  <div class="flex flex-col container">
     <div class="mt-12">
       <TrendingList
         :tagList="tagList"
@@ -13,15 +15,16 @@
 </template>
 
 <script setup lang="ts">
-import Search from '@/components/Search.vue';
+import SearchArea from '@/components/SearchArea.vue';
 import TrendingList from '@/components/TrendingList.vue';
 import QuestionList from '@/components/QuestionList.vue'
 import api from '@/services/api'
 
-import type { Tag, TagItem, TagList } from '@/types/share'
+import type { Tag, TagItem, TagList, Search } from '@/types/share'
 import { ref, reactive } from 'vue'
 
 const activeTag = ref<Tag>('')
+const search = ref<Search>('')
 const tagList = reactive<TagList>([])
 
 async function getTags() {

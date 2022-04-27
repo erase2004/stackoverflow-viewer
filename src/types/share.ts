@@ -9,3 +9,5 @@ export interface TagItem {
 }
 
 export type TagList = Tag[]
+
+export type Search = string;
