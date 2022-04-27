@@ -17,23 +17,32 @@
 import type { Tag, TagList } from '@/types/share'
 
 interface Props {
-  activeTag: Tag;
+  activeTagList: TagList;
   tagList: TagList;
 }
 
 interface Emits {
-  (e: 'change', tag: Tag): void;
+  (e: 'change', tag: TagList): void;
 }
 
 const props = defineProps<Props>()
 const emit = defineEmits<Emits>()
 
 function isActiveTag(tag: Tag): boolean {
-  return tag === props.activeTag
+  return props.activeTagList.includes(tag)
 }
 
 function updateSelected(tag: Tag) {
-  emit('change', tag)
+  const copyArr = [...props.activeTagList]
+  const index = copyArr.indexOf(tag)
+
+  if (index === -1) {
+    copyArr.push(tag)
+  } else {
+    copyArr.splice(index, 1)
+  }
+
+  emit('change', copyArr)
 }
 
 </script>

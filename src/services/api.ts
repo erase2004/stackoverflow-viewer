@@ -1,4 +1,5 @@
 import { apiHelper } from "@/utils/helpers";
+import { TagList } from '@/types/share'
 
 const tagCount = 10
 const questionCount = 20
@@ -14,13 +15,13 @@ export default {
       }
     })
   },
-  getQeustionsByTag(tag: string) {
+  getQeustionsByTag(tagList: TagList) {
     return apiHelper.get('/questions', {
       params: {
         pagesize: questionCount,
         order: 'desc',
-        sort: 'vote',
-        tagged: tag,
+        sort: 'votes',
+        tagged: tagList.join(';'),
         site: 'stackoverflow'
       }
     })

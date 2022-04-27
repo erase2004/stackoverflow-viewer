@@ -6,8 +6,8 @@
     <div class="mt-12">
       <TrendingList
         :tagList="tagList"
-        :activeTag="activeTag"
-        @change="activeTag = $event"
+        :activeTagList="activeTagList"
+        @change="updateActiveTagList($event)"
       ></TrendingList>
       <QuestionList></QuestionList>
     </div>
@@ -23,9 +23,9 @@ import api from '@/services/api'
 import type { Tag, TagItem, TagList, Search } from '@/types/share'
 import { ref, reactive } from 'vue'
 
-const activeTag = ref<Tag>('')
 const search = ref<Search>('')
 const tagList = reactive<TagList>([])
+const activeTagList = reactive<TagList>([])
 
 async function getTags() {
   try {
@@ -39,7 +39,22 @@ async function getTags() {
         tagList.push(item.name)
       })
 
-      activeTag.value = tagList[0]
+      activeTagList.splice(0, activeTagList.length)
+      activeTagList.push(tagList[0])
+    }
+
+    return true;
+  } catch (error) {
+    console.log(error)
+
+    return false;
+  }
+}
+
+function updateActiveTagList(tagList: TagList) {
+  activeTagList.splice(0, activeTagList.length)
+  activeTagList.push(...tagList)
+}
     }
 
   } catch (error) {
