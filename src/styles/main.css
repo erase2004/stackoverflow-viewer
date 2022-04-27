@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+.container {
+  @apply max-w-5xl mx-auto px-4;
+}
+
 .btn {
   @apply border border-solid rounded-md;
 }
