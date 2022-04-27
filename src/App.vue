@@ -1,5 +1,5 @@
 <template>
-  <SearchArea @search="searchByTag($event)">
+  <SearchArea @search="searchHandle($event)">
 
   </SearchArea>
   <div class="flex flex-col container">
@@ -7,7 +7,7 @@
       <TrendingList
         :tagList="tagList"
         :activeTagList="activeTagList"
-        @change="updateActiveTagList($event)"
+        @change="tagListChangeHandle($event)"
       ></TrendingList>
       <QuestionList
         :questionList="questionList"
@@ -23,13 +23,14 @@ import QuestionList from '@/components/QuestionList.vue'
 import api from '@/services/api'
 
 import type { Tag, TagItem, TagList, Search, Question } from '@/types/share'
-import { TAG_SEPERATOR } from '@/constants/share'
-import { ref, reactive } from 'vue'
+import { TAG_SEPERATOR, PRELOAD_PADDING } from '@/constants/share'
+import { ref, reactive, watch, onBeforeUnmount } from 'vue'
 
 const tagList = reactive<TagList>([])
 const activeTagList = reactive<TagList>([])
 const page = ref<number>(1)
 const questionList = reactive<Question[]>([])
+const questionIsLoading = ref<boolean>(true)
 
 async function getTags() {
   try {
@@ -55,17 +56,38 @@ async function getTags() {
   }
 }
 
-function searchByTag(search: Search) {
-  const tagList: TagList = search.split(TAG_SEPERATOR)
-}
-
 function updateActiveTagList(tagList: TagList) {
   activeTagList.splice(0, activeTagList.length)
   activeTagList.push(...tagList)
 }
 
+async function searchHandle(search: Search) {
+  const tagList: TagList = search.split(TAG_SEPERATOR)
+
+  const resp = await tagListChangeHandle(tagList)
+}
+
+async function tagListChangeHandle(tagList: TagList) {
+  updateActiveTagList(tagList)
+
+  page.value = 1
+
+  try {
+    const resp = await getQuestionsByTag(activeTagList, page.value)
+
+    page.value += 1
+
+    return true
+  } catch (error) {
+    console.log(error)
+
+    return false
+  }
+}
+
 async function getQuestionsByTag(tagList: TagList, page: number) {
   try {
+    questionIsLoading.value = true
     const resp = await api.getQeustionsByTag(tagList, page)
 
     if (resp.status === 200) {
@@ -83,6 +105,8 @@ async function getQuestionsByTag(tagList: TagList, page: number) {
     console.log(error)
 
     return false;
+  } finally {
+    questionIsLoading.value = false
   }
 }
 
@@ -111,5 +135,31 @@ async function load() {
 }
 
 load()
+
+async function scrollHandle() {
+  const aboutReachEnd = document.documentElement.scrollTop + window.innerHeight + PRELOAD_PADDING >= document.documentElement.offsetHeight;
+
+  if (aboutReachEnd === false) {
+    return;
+  }
+
+  if (questionIsLoading.value === true) {
+    return;
+  }
+
+  try {
+    const resp = getQuestionsByTag(activeTagList, page.value)
+
+    page.value += 1
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+window.addEventListener('scroll', scrollHandle)
+
+onBeforeUnmount(() => {
+  window.removeEventListener('scroll', scrollHandle)
+})
 
 </script>
