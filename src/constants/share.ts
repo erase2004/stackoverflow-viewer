@@ -1,3 +1,3 @@
 export const TAG_SEPERATOR = ';'
 
-export const PRELOAD_PADDING = 2500
+export const PRELOAD_PADDING = 1000

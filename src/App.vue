@@ -138,7 +138,7 @@ async function load() {
 load()
 
 async function scrollHandle() {
-  const aboutReachEnd = document.documentElement.scrollTop + window.innerHeight + PRELOAD_PADDING >= document.documentElement.offsetHeight;
+  const aboutReachEnd = window.scrollY + window.innerHeight + PRELOAD_PADDING >= document.documentElement.scrollHeight;
 
   if (aboutReachEnd === false) {
     return;
